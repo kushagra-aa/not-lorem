@@ -1,29 +1,24 @@
 import axios from 'axios';
 import * as vscode from 'vscode';
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "not-lorem" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('not-lorem.searchWords', async () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from not-lorem!');
-		const res = await axios.get('http://asdfast.beobit.net/api/?type=word&length=10');
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showErrorMessage('Editor does not exist');
+			return;
+		}
+		vscode.window.showInformationMessage('Enter The Number Of Words In The Input Box');
+		const input = await vscode.window.showInputBox();
+		const res = await axios.get(`http://asdfast.beobit.net/api/?type=word&length=${input}`);
 		const data = await res.data.text;
-		console.log('data :>> ', data);
-		// vscode.createInputBox
+		editor.selections.forEach(selection => editor.edit((e) => e.insert(selection.active, data)));
 	});
 
 	context.subscriptions.push(disposable);
 }
 
-// this method is called when your extension is deactivated
 export function deactivate() { }
