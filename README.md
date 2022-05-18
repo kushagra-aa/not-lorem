@@ -8,6 +8,11 @@ Api used <http://asdfast.beobit.net/>
 
 This extension I've made during learning how to make extensions for VSCode
 
+## Features
+
+- Can Generate Sentences as per user needs
+- Can Generate Paragraphs as per user needs
+
 ## Usage
 
 1 - After Installing the extension,Open Command Pallet(`Ctrl + Shift + P`)

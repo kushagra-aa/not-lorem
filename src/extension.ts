@@ -17,8 +17,20 @@ export function activate(context: vscode.ExtensionContext) {
 		const data = await res.data.text;
 		editor.selections.forEach(selection => editor.edit((e) => e.insert(selection.active, data)));
 	});
+	let disposable2 = vscode.commands.registerCommand('not-lorem.searchParas', async () => {
+		const editor = vscode.window.activeTextEditor;
+		if (!editor) {
+			vscode.window.showErrorMessage('Editor does not exist');
+			return;
+		}
+		vscode.window.showInformationMessage('Enter The Number Of Paragraphs In The Input Box');
+		const input = await vscode.window.showInputBox();
+		const res = await axios.get(`http://asdfast.beobit.net/api/?type=paragraph&length=${input}`);
+		const data = await res.data.text;
+		editor.selections.forEach(selection => editor.edit((e) => e.insert(selection.active, data)));
+	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable, disposable2);
 }
 
 export function deactivate() { }
