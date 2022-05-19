@@ -27,7 +27,7 @@ This extension I've made during learning how to make extensions for VSCode
 
 ## Repository & Feedback
 
-Please report issues related to this theme on the repository page.
+Please report issues related to this extension on the repository page.
 
 [GitHub Repository](https://github.com/kushagra-aa/not-lorem)
 
